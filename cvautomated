@@ -3,11 +3,11 @@
 #Global vars
 
 date=$(date '+%Y/%m/%d')
-org="ACME"
+org=$(hammer organization list | grep -A 2 "LABEL" | sed '1,2d' | awk '{print $19}')
 
 # Publishing all content views - you have to specify the content-view id below::
 
-for i in 4 6 7 8 9 10 11 12;
+for i in 4 6;
 
 do 
 
