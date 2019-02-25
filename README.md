@@ -6,6 +6,10 @@ This bash script aims to automate the process of creating and promoting content-
 
 These instructions will get you a copy of the project on your local machine. See prerequisites and installing section for notes on how to deploy the project on a live system.
 
+1. Clone this repo: 
+   $ git clone https://github.com/eduardohenrik/content-view-automated.git
+2. $ cd /content-view-automated
+
 ### Prerequisites
 
 First, you have to collect the content-view ID's using the command below:
