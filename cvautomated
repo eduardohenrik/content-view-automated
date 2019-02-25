@@ -1,0 +1,25 @@
+#!/bin/bash
+
+#Global vars
+
+date=$(date '+%Y/%m/%d')
+org="ACME"
+
+# Publishing all content views - you have to specify the content-view id below::
+
+for i in 4 6 7 8 9 10 11 12;
+
+do 
+
+	echo "========  Publishing "$(hammer content-view info --id $i | grep -A 4 "Lifecycle" | sed -n 5p | awk '{print $2}')" content-view. ============" 
+	hammer content-view publish --id $i --organization-label $org; 
+	echo -e
+    
+	/usr/bin/hammer content-view version list --content-view-id $i > /tmp/info_$i.txt
+	cv_version="--id $(cat /tmp/info_$i.txt | sed -n 4p| awk '{print $1}')";
+	environment="--to-lifecycle-environment-id $(hammer content-view info --id $i | grep -A 4 "Lifecycle" | sed -n 4p | awk '{print $3}')";
+
+	echo "========  Promoting "$(hammer content-view info --id $i | grep -A 4 "Lifecycle" | sed -n 5p | awk '{print $2}')" content-view. ============" 
+	/usr/bin/hammer content-view version promote --organization-label $org $environment $cv_version --force; 
+	echo -e
+done
